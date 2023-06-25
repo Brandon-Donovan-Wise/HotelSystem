@@ -16,17 +16,25 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import za.ac.cput.domain.Reservation;
+
 import za.ac.cput.domain.ReservationDate;
+import za.ac.cput.util.factory.ReservationDateFactory;
 import za.ac.cput.util.factory.ReservationFactory;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+
+
 @TestMethodOrder(MethodOrderer.MethodName.class)
 @SpringBootTest(webEnvironment= SpringBootTest.WebEnvironment.RANDOM_PORT)
 class ReservationControllerTest {
     //last parameter check again
-    private static Reservation reservation = ReservationFactory.buildReservation("REF83739333", LocalDateTime.now(), "Waiting List", true, new ReservationDate());
+
+    private static ReservationDate reservationDate= ReservationDateFactory.buildReservationDate(LocalDate.of(2024, 03 , 1),  LocalDate.of(2023,03,4),     LocalDateTime.of(2024, 03, 1, 15, 30));
+    private static Reservation reservation = ReservationFactory.buildReservation( LocalDateTime.now(), "Waiting List", true,  reservationDate);
     @Autowired
     private TestRestTemplate restTemplate;
     private final String baseURL = "http://localhost:8080/reservation";

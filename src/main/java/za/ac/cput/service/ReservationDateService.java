@@ -10,8 +10,9 @@ package za.ac.cput.service;
 
 import za.ac.cput.domain.ReservationDate;
 
+import java.util.List;
 import java.util.Set;
 
 public interface ReservationDateService extends IService<ReservationDate,String> {
-     Set<ReservationDate> getAll();
+     List<ReservationDate> getAll();
 }

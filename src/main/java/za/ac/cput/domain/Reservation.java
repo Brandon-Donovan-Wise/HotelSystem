@@ -8,19 +8,23 @@ Date : 5 April 2023
 package za.ac.cput.domain;
 
 
+import jakarta.persistence.*;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+@Entity
+@Table(name= "Reservation")
 public class Reservation implements Serializable {
-
+ @Id
+ @GeneratedValue(strategy=GenerationType.AUTO)
     private String reservationID;
     private LocalDateTime reservationTimeCreated;
     private String reservationStatus;
     private Boolean termsAndConditions;
     private ReservationDate reservationDate;
-
-    private Reservation(){}
+    protected Reservation(){}
     private Reservation(Builder builder) {
 
         this.reservationID = builder.reservationID;

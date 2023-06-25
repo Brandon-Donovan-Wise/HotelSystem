@@ -15,6 +15,7 @@ import za.ac.cput.util.factory.ReservationFactory;
 
 import za.ac.cput.service.impl.ReservationServiceImpl;
 
+import java.util.List;
 import java.util.Set;
 
 @RestController
@@ -26,7 +27,7 @@ public class ReservationController {
 
     @PostMapping("/create")
     public Reservation create (@RequestBody Reservation reservation){
-        Reservation reservationCreated= ReservationFactory.buildReservation(reservation.getReservationID(), reservation.getReservationTimeCreated(),reservation.getReservationStatus(),reservation.getTermsAndConditions(),reservation.getReservationDate());
+        Reservation reservationCreated= ReservationFactory.buildReservation( reservation.getReservationTimeCreated(),reservation.getReservationStatus(),reservation.getTermsAndConditions(),reservation.getReservationDate());
 
         return reservationService.create(reservationCreated);
     }
@@ -47,7 +48,7 @@ public class ReservationController {
     }
 
     @RequestMapping({"/getall"})
-    public Set<Reservation> getAll(){
+    public List<Reservation> getAll(){
         return reservationService.getAll();
 
     }

@@ -17,16 +17,16 @@ import java.time.LocalDateTime;
 public class ReservationDateFactory {
 
 
-    public static ReservationDate buildReservationDate(String reservationID , LocalDate checkInDate , LocalDate checkOutDate , LocalDateTime estCheckInTime ){
-        String reservationId = Helper.generateID();
+    public static ReservationDate buildReservationDate( LocalDate checkInDate , LocalDate checkOutDate , LocalDateTime estCheckInTime ){
+        String reservationDateID = Helper.generateID();
 
-        if (Helper.isNullOrEmpty(String.valueOf(reservationID))||
+        if (Helper.isNullOrEmpty(String.valueOf(reservationDateID))||
                 Helper.isNullOrEmpty(String.valueOf(checkInDate)) ||
                 Helper.isNullOrEmpty(String.valueOf(checkOutDate)) ||
                 Helper.isNullOrEmpty(String.valueOf(estCheckInTime))) return null;
 
         return new ReservationDate.Builder()
-                .setReservationID(reservationID)
+                .setReservationDateID(reservationDateID)
                 .setCheckInDate(checkInDate)
                 .setCheckOutDate(checkOutDate)
                 .setEstCheckInTime(estCheckInTime)

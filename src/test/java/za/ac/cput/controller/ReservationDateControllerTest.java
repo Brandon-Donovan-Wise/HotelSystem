@@ -31,7 +31,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest(webEnvironment= SpringBootTest.WebEnvironment.RANDOM_PORT)
 
 class ReservationDateControllerTest {
-    private static ReservationDate reservationDate = ReservationDateFactory.buildReservationDate("REF978878171" , LocalDate.of(2024, 03 , 1),  LocalDate.of(2024,03,4),     LocalDateTime.of(2024, 03, 1, 15, 30));
+    private static ReservationDate reservationDate = ReservationDateFactory.buildReservationDate(LocalDate.of(2024, 03 , 1),  LocalDate.of(2024,03,4),     LocalDateTime.of(2024, 03, 1, 15, 30));
     @Autowired
     private TestRestTemplate restTemplate;
     private final String baseURL = "http://localhost:8080/reservationDate";
@@ -43,16 +43,16 @@ class ReservationDateControllerTest {
         assertNotNull(postResponse.getBody());
         ReservationDate savedReservationDate= postResponse.getBody();
         System.out.println("Saved data:" +savedReservationDate);
-        assertEquals(reservationDate.getReservationID(),savedReservationDate.getReservationID() );
+        assertEquals(reservationDate.getReservationDateID(),savedReservationDate.getReservationDateID() );
     }
 
     @Test
     void b_read() {
-        String url = baseURL + "/read/" + reservationDate.getReservationID();
+        String url = baseURL + "/read/" + reservationDate.getReservationDateID();
 
         System.out.println("URL"+ url);
         ResponseEntity<ReservationDate>response= restTemplate.getForEntity(url, ReservationDate.class);
-        assertEquals(reservationDate.getReservationID(), response.getBody().getReservationID());
+        assertEquals(reservationDate.getReservationDateID(), response.getBody().getReservationDateID());
         System.out.println(response.getBody());
     }
 
@@ -69,7 +69,7 @@ class ReservationDateControllerTest {
     @Test
     @Disabled
     void d_delete() {
-        String url = baseURL + "/delete"+ reservationDate.getReservationID();
+        String url = baseURL + "/delete"+ reservationDate.getReservationDateID();
         System.out.println("URL"+ url);
         restTemplate.delete(url);
     }

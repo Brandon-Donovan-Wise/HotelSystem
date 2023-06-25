@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.*;
 import za.ac.cput.domain.ReservationDate;
 import za.ac.cput.util.factory.ReservationDateFactory;
 import za.ac.cput.service.impl.ReservationDateServiceImpl;
+
+import java.util.List;
 import java.util.Set;
 
 
@@ -22,7 +24,7 @@ private ReservationDateServiceImpl reservationDateService;
 
     @PostMapping("/create")
     public ReservationDate create (@RequestBody ReservationDate reservationDate){
-        ReservationDate reservationDateCreated= ReservationDateFactory.buildReservationDate(reservationDate.getReservationID(), reservationDate.getCheckInDate(),reservationDate.getCheckOutDate(),reservationDate.getEstCheckInTime());
+        ReservationDate reservationDateCreated= ReservationDateFactory.buildReservationDate( reservationDate.getCheckInDate(),reservationDate.getCheckOutDate(),reservationDate.getEstCheckInTime());
 
         return reservationDateService.create(reservationDateCreated);
     }
@@ -43,7 +45,7 @@ private ReservationDateServiceImpl reservationDateService;
     }
 
     @RequestMapping({"/getall"})
-    public Set<ReservationDate> getAll(){
+    public List<ReservationDate> getAll(){
         return reservationDateService.getAll();
 
     }
