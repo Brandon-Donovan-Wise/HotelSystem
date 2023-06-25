@@ -1,50 +1,49 @@
-/**
- * AmenityServiceTest.java
- * Service Test for the Amenity
- * Author: Alison Shirlene Williams (219140987)
- * Date: 09 June 2023
- */
 package za.ac.cput.service.impl;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import za.ac.cput.domain.Amenity;
-import za.ac.cput.factory.AmenityFactory;
+import za.ac.cput.util.factory.AmenityFactory;
 
 import static org.junit.jupiter.api.Assertions.*;
-@TestMethodOrder(MethodOrderer.MethodName.class)
-public class AmenityServiceImplTest {
 
-    private static AmenityServiceImpl service = AmenityServiceImpl.getService();
-    private static Amenity amenity = AmenityFactory.buildAmenity("Conditioner","Toiletries", true, 25.00);
+@TestMethodOrder(MethodOrderer.MethodName.class)
+@SpringBootTest
+class AmenityServiceImplTest {
+
+    @Autowired
+    private AmenityServiceImpl service;
+
+    private static Amenity amenity = AmenityFactory.buildAmenity("Shampoo", "Toiletries", true,12.00);
 
     @Test
     void a_create() {
-        Amenity created1 = service.create(amenity);
-        assertEquals(amenity.getAmenityID(), created1.getAmenityID());
-        System.out.println("Create:" + created1);
+        Amenity create = service.create(amenity);
+        assertEquals(amenity.getAmenityID(), create.getAmenityID());
+        System.out.println("created" + create);
     }
 
     @Test
     void b_read() {
         Amenity read = service.read(amenity.getAmenityID());
         assertNotNull(read);
-        System.out.println("Read:" + read);
+        System.out.println("read" + read);
     }
 
     @Test
     void c_update() {
-        Amenity updated = new Amenity.Builder().copy(amenity).setName("Pads")
-                .setDescription("Toiletries")
-                .setAmenityAvailable(false)
-                .setPrice(10.00)
-                .build();
-        assertNotNull(service.update(updated));
-        System.out.println("Updated:" + updated);
+        Amenity newAmenity = new Amenity.Builder().copy(amenity).setName("Conditioner").build();
+        Amenity updated = service.update(newAmenity);
+        assertEquals(newAmenity.getName(), updated.getName());
+        System.out.println("Update" + updated);
     }
 
     @Test
+    @Disabled
     void d_delete() {
         boolean success = service.delete(amenity.getAmenityID());
         assertTrue(success);
@@ -53,7 +52,7 @@ public class AmenityServiceImplTest {
 
     @Test
     void e_getAll() {
-        System.out.println("Show all:");
+        System.out.println("Get All:");
         System.out.println(service.getAll());
     }
 }

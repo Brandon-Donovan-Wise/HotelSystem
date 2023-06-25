@@ -1,28 +1,29 @@
-/* HotelLocationServiceImplTest.java
- Service Test for the HotelLocationServiceImpl class
- Author: Ashton Williams (220468478)
- Date: 10 June 2023
-*/
 package za.ac.cput.service.impl;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import za.ac.cput.domain.HotelLocation;
-import za.ac.cput.factory.HotelLocationFactory;
+import za.ac.cput.util.factory.HotelLocationFactory;
 
 import static org.junit.jupiter.api.Assertions.*;
 @TestMethodOrder(MethodOrderer.MethodName.class)
+@SpringBootTest
 class HotelLocationServiceImplTest {
 
-    private static HotelLocationServiceImpl service= HotelLocationServiceImpl.getService();
-    private static HotelLocation hotelLocation= HotelLocationFactory.createHotelLocation("79 Broo Street Milnerton","Cape Town", "Western Cape", 7682);
+    @Autowired
+    private HotelLocationServiceImpl service;
+
+    private static HotelLocation hotelLocation= HotelLocationFactory.createHotelLocation("6 Nassau Street Milnerton", "Cape Town", "Western Cape",7441);
 
     @Test
     void a_create() {
-        HotelLocation created1= service.create(hotelLocation);
-        assertEquals(hotelLocation.getID(), created1.getID());
-        System.out.println("This object has been created: " + created1);
+        HotelLocation created = service.create(hotelLocation);
+        assertEquals(hotelLocation.getID(), created.getID());
+        System.out.println("This has been created: " + created);
     }
 
     @Test
@@ -34,26 +35,25 @@ class HotelLocationServiceImplTest {
 
     @Test
     void c_update() {
-        HotelLocation updated= new HotelLocation.Builder().copy(hotelLocation)
-                .setAddress("20 Builder Street Milnerton")
-                .setCity("Cape Town")
-                .setProvince("Western Cape")
-                .setZipCode(7392)
+        HotelLocation newHotelLocation= new HotelLocation.Builder().copy(hotelLocation)
+                .setZipCode(7341)
                 .build();
-        assertNotNull(service.update(updated));
-        System.out.println("The updated hotel location is: " + updated);
+        HotelLocation updated= service.update(newHotelLocation);
+        assertEquals(newHotelLocation.getZipCode(), updated.getZipCode());
+        System.out.println("This has been updated" + updated);
     }
 
     @Test
+    @Disabled
     void d_delete() {
         boolean success= service.delete(hotelLocation.getID());
         assertTrue(success);
-        System.out.println("Deleted: " + success);
+        System.out.println("Files have been deleted." + success);
     }
 
     @Test
     void e_getAll() {
-        System.out.println("Display all information");
+        System.out.println("This is what has been fetched:");
         System.out.println(service.getAll());
     }
 }

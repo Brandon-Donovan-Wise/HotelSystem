@@ -1,54 +1,51 @@
-/* InvoiceServiceImplTest.java
- Service Test for the InvoiceService class
- Author: Ashton Williams (220468478)
- Date: 10 June 2023
-*/
 package za.ac.cput.service.impl;
 
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import za.ac.cput.domain.Invoice;
-import za.ac.cput.factory.InvoiceFactory;
-import static org.junit.jupiter.api.Assertions.*;
+import za.ac.cput.util.factory.InvoiceFactory;
 
+import static org.junit.jupiter.api.Assertions.*;
 @TestMethodOrder(MethodOrderer.MethodName.class)
+@SpringBootTest
 class InvoiceServiceImplTest {
-    private static InvoiceServiceImpl service= InvoiceServiceImpl.getService();
-    private static Invoice invoice= InvoiceFactory.createInvoice("Family Suite",3,8,3,1000,140,3000);
+
+    @Autowired
+    private InvoiceServiceImpl service;
+
+    private static Invoice invoice= InvoiceFactory.createInvoice("Single",1,
+            2,0,1000,140,1140);
 
     @Test
-    void a_create(){
-        Invoice created= service.create(invoice);
+    void a_create() {
+        Invoice created = service.create(invoice);
         assertEquals(invoice.getInvoiceID(), created.getInvoiceID());
-        System.out.println("This object has been created: " + created);
+        System.out.println("This has been created: " + created);
     }
 
     @Test
-    void b_read(){
+    void b_read() {
         Invoice read= service.read(invoice.getInvoiceID());
         assertNotNull(read);
         System.out.println("This has been read: " + read);
     }
 
     @Test
-    void c_update(){
-        Invoice updated= new Invoice.Builder().copy(invoice)
-                .setTypeOfRoomBooked("Single Room")
-                .setNumRoomsBooked(1)
-                .setNumAdults(2)
-                .setNumChildren(0)
-                .setUnitPrice(600)
-                .setVAT(124)
-                .setTotalPrice(724)
+    void c_update() {
+        Invoice newInvoice= new Invoice.Builder().copy(invoice)
+                .setNumAdults(1)
                 .build();
-        assertNotNull(service.update(updated));
-        System.out.println("The new invoice is: " + updated);
+        Invoice updated= service.update(newInvoice);
+        assertEquals(newInvoice.getNumAdults(), updated.getNumAdults());
+        System.out.println("This has been updated" + updated);
     }
 
     @Test
-    void d_getAll(){
-        System.out.println("Display all information: ");
+    void d_getAll() {
+        System.out.println("This is what has been fetched:");
         System.out.println(service.getAll());
     }
 }

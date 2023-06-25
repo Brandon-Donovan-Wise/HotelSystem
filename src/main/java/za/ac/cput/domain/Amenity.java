@@ -6,16 +6,23 @@
  */
 package za.ac.cput.domain;
 
-import java.util.Objects;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 
-public class Amenity {
+
+import java.io.Serializable;
+
+
+@Entity
+public class Amenity implements Serializable {
+    @Id
     private String amenityID;
     private String name;
     private String description;
-    private Boolean isAmenityAvailable;
-    private Double price;
+    private boolean isAmenityAvailable;
+    private double price;
 
-    private Amenity(){}
+    protected Amenity(){}
     private Amenity(Builder builder){
         this.amenityID = builder.amenityID;
         this.name = builder.name;
@@ -37,11 +44,11 @@ public class Amenity {
         return description;
     }
 
-    public Boolean getAmenityAvailable() {
+    public boolean getAmenityAvailable() {
         return isAmenityAvailable;
     }
 
-    public Double getPrice() {
+    public double getPrice() {
         return price;
     }
 
@@ -61,8 +68,8 @@ public class Amenity {
         private String amenityID;
         private String name;
         private String description;
-        private  Boolean isAmenityAvailable;
-        private Double price;
+        private boolean isAmenityAvailable;
+        private double price;
 
         public Builder setAmenityID(String amenityID) {
             this.amenityID = amenityID;
@@ -79,12 +86,12 @@ public class Amenity {
             return this;
         }
 
-        public Builder setAmenityAvailable(Boolean isAmenityAvailable) {
+        public Builder setAmenityAvailable(boolean isAmenityAvailable) {
             this.isAmenityAvailable = isAmenityAvailable;
             return this;
         }
 
-        public Builder setPrice(Double price) {
+        public Builder setPrice(double price) {
             this.price = price;
             return this;
         }
