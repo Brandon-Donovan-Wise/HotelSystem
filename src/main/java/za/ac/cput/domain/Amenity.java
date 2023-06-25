@@ -19,8 +19,8 @@ public class Amenity implements Serializable {
     private String amenityID;
     private String name;
     private String description;
-    private Boolean isAmenityAvailable;
-    private Double price;
+    private boolean isAmenityAvailable;
+    private double price;
 
     protected Amenity(){}
     private Amenity(Builder builder){
@@ -44,11 +44,11 @@ public class Amenity implements Serializable {
         return description;
     }
 
-    public Boolean getAmenityAvailable() {
+    public boolean getAmenityAvailable() {
         return isAmenityAvailable;
     }
 
-    public Double getPrice() {
+    public double getPrice() {
         return price;
     }
 
@@ -68,8 +68,8 @@ public class Amenity implements Serializable {
         private String amenityID;
         private String name;
         private String description;
-        private  Boolean isAmenityAvailable;
-        private Double price;
+        private boolean isAmenityAvailable;
+        private double price;
 
         public Builder setAmenityID(String amenityID) {
             this.amenityID = amenityID;
@@ -86,12 +86,12 @@ public class Amenity implements Serializable {
             return this;
         }
 
-        public Builder setAmenityAvailable(Boolean isAmenityAvailable) {
+        public Builder setAmenityAvailable(boolean isAmenityAvailable) {
             this.isAmenityAvailable = isAmenityAvailable;
             return this;
         }
 
-        public Builder setPrice(Double price) {
+        public Builder setPrice(double price) {
             this.price = price;
             return this;
         }
