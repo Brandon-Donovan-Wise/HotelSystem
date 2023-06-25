@@ -12,7 +12,7 @@ import za.ac.cput.util.Helper;
 public class AmenityFactory {
 
     public static Amenity buildAmenity(String name, String description,
-                                       boolean isAmenityAvailable,double price){
+                                       boolean isAmenityAvailable, double price){
 
         if(Helper.isNullOrEmpty(name) || Helper.isNullOrEmpty(description) ||
                 Helper.isNullOrEmpty(String.valueOf(isAmenityAvailable)) ||
